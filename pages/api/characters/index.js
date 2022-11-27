@@ -5,6 +5,7 @@ export default async function handler(req, res) {
     let characters = JSON.parse(await getResultFromRedis('character-all'));
     if (!characters){
         characters = await getCharacters();
+        console.log(characters)
         addResultToRedis('character-all', JSON.stringify(characters)).catch(console.error)
     }
     if (characters) {

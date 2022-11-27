@@ -1,7 +1,9 @@
-const ENABLE_REDIS = true;
+const ENABLE_REDIS = process.env["ENABLE_REDIS"];
 const redis = require("redis");
-const client = ENABLE_REDIS ? redis.createClient("redis://localhost:6379") : null;
-client?.connect();
+const client = redis.createClient({
+    url: `redis://${process.env['REDIS_HOST']}:${process.env["REDIS_PORT"]}`
+});
+if (ENABLE_REDIS) (client.connect().then(_ =>{console.info("Connected to redis")}));
 
 
 export async function getResultFromRedis(key){
