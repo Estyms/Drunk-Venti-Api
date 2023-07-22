@@ -21,7 +21,10 @@ export async function getCharacters() {
     )(weapons, await getElements(), await getItems());
 
     for (let chr in characters){
-        characters[chr].builds = builds[chr]['roles'];
+        if (builds[chr])
+            characters[chr].builds = builds[chr]['roles'];
+        else
+            characters[chr].builds = []
         for (let y in characters[chr]['ascension']) {
             for (let x in characters[chr]['ascension'][y].items) {
                 if (!characters[chr]['ascension'][y]["items"][x]["amount"]) {
